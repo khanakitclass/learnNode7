@@ -5,7 +5,11 @@ const cookieParser = require("cookie-parser");
 const cors = require('cors')
 
 const app = express();
-app.use(cors())
+app.use(cors({
+  origin: "https://lms-frontend-psi-ochre.vercel.app",
+  optionsSuccessStatus: 200,
+  credentials: true
+}))
 
 app.use(express.json());
 app.use(cookieParser());
@@ -34,11 +38,17 @@ app.use(passport.session());
 connectMangoDB();
 // googleProvider();
 
+app.get("/", (req, res) => {
+  res.send("Sever connected.")
+})
+
 app.use("/api/v1", apiRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
-});
+// app.listen(process.env.PORT, () => {
+//   console.log(`Server is running on port ${process.env.PORT}`);
+// });
+
+module.exports = app;
 
 // (async () => {
 //   // await db.sequelize.sync({ alter: true });
