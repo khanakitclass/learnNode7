@@ -5,7 +5,7 @@ const getAllCategory = async (req, res) => {
   try {
     const categories = await Categories.find();
 
-
+ 
 
     if (!categories) {
       res.status(400).json({
